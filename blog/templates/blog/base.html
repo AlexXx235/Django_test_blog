@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
+    <title>Главная</title>
+</head>
+<body>
+<div class="wrapper">
+    {% block header %}
+
+        <div class="header">
+            <div class="nav-block">
+                <div class="menu-block">
+                    <a href="{% url 'blog:home' %}">Главная</a>
+                </div>
+                <div>
+                    <a href="{% url 'blog:articles' %}">Статьи</a>
+                </div>
+            </div>
+            <div class="login-block">
+                <div class="menu-block">
+                    <a href="{% url 'blog:login' %}">Войти</a>
+                </div>
+            </div>
+        </div>
+
+    {% endblock header %}
+
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+    {% block footer %}
+        <div>
+            <p>Все права защищены</p>
+        </div>
+    {% endblock footer %}
+</div>
+</body>
+</html>
