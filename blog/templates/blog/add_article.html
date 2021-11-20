@@ -3,7 +3,7 @@
 {% block content %}
     <div class="add-article-content">
         <div class="add-article-form">
-            <form method="post">
+            <form action="{% url 'blog:add_article' %}" method="post">
                 {% csrf_token %}
                 {% for row in form %}
                 <div class="add-article-form__row">
