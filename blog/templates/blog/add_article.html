@@ -10,6 +10,11 @@
                     <label class="add-article-form__label" for="{{ row.id_for_label }}">{{ row.label }}:</label>
                     {{ row }}
                 </div>
+                <div class="add-article-form__row add-article-form__row_narrow">
+                    <div class="add-article-form__error">
+                        {{ row.errors }}
+                    </div>
+                </div>
                 {% endfor %}
                 <div class="add-article-form__row">
                     <button class="add-article-form__btn" type="submit">Добавить</button>

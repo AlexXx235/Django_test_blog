@@ -36,14 +36,11 @@ def add_article(request):
     if request.method == 'POST':
         form = AddArticleForm(request.POST)
         if form.is_valid():
-            try:
-                Article.objects.create(**form.cleaned_data)
-            except:
-                form.add_error(None, 'Ошибка')
-            else:
-                return redirect('blog:articles')
+            form.save()
+            return redirect('blog:articles')
     else:
         form = AddArticleForm()
+        print(form)
     return render(request, 'blog/add_article.html', {'form': form})
 
 

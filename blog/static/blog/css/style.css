@@ -133,12 +133,23 @@ textarea {
     grid-template-columns: 2fr 1fr 6fr;
 }
 
+.add-article-form__row_narrow {
+    margin: 5px 0 0 0;
+}
+
+.add-article-form__error {
+    color: red;
+    justify-self: center;
+    grid-column: span 3;
+}
+
 .add-article-form__label {
     grid-column: 1;
     justify-self: flex-end;
 }
 
 .add-article-form__input {
+    font-size: 20px;
     grid-column: 3;
 }
 

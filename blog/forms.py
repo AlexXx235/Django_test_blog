@@ -1,12 +1,13 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import *
 
 
-class AddArticleForm(forms.Form):
-    title = forms.CharField(max_length=256, label='Заголовок',
-                            widget=forms.TextInput(attrs={'class': 'add-article-form__input'}))
-    text = forms.CharField(widget=forms.Textarea(attrs={
-        'cols': 60,
-        'rows': 10,
-        'class': 'add-article-form__input'}),
-        label='Текст')
+class AddArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'text']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'add-article-form__input'}),
+            'text': forms.Textarea(attrs={'rows': 10, 'class': 'add-article-form__input'})
+        }

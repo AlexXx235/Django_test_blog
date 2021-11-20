@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=256)
-    text = models.TextField()
+    title = models.CharField(max_length=256, verbose_name='Заголовок')
+    text = models.TextField(verbose_name='Текст статьи')
 
     class Meta:
         verbose_name = 'Статья'
