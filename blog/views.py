@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import *
@@ -35,8 +35,16 @@ def login(request):
 def add_article(request):
     if request.method == 'POST':
         form = AddArticleForm(request.POST)
-        return render(request, 'blog/add_article.html', {'form': form})
-    return render(request, 'blog/add_article.html', {'form': AddArticleForm()})
+        if form.is_valid():
+            try:
+                Article.objects.create(**form.cleaned_data)
+            except:
+                form.add_error(None, 'Ошибка')
+            else:
+                return redirect('blog:articles')
+    else:
+        form = AddArticleForm()
+    return render(request, 'blog/add_article.html', {'form': form})
 
 
 def about(request):
