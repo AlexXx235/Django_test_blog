@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    <div class="add-article-form">
+        <div class="add-article-title">
+            <label class="add-article-title__label" for="1">Заголовок:</label>
+            <input class="add-article-title__input" id="1" type="text" name="title">
+        </div>
+        <label for="2">Текст статьи:</label>
+        <br>
+        <textarea name="text" id="2" cols="30" rows="10"></textarea>
+        <input class="add-article-form__submit-btn" type="submit">
+    </div>
+    </form>
+{% endblock content %}

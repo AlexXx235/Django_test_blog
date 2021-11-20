@@ -1,5 +1,19 @@
 {% extends 'blog/base.html' %}
+{% load blog_tags %}
 
 {% block content %}
-    Статьи
+    {% get_articles as articles %}
+    {% for article in articles %}
+        <div class="article-preview">
+            <div class="article-preview__title">
+                <h2>{{ article.title }}</h2>
+            </div>
+            <div class="article-preview__content">
+                {{ article.text|linebreaks|truncatewords:20}}
+            </div>
+            <button onclick="document.location='{% url 'blog:article' article.pk %}'" class="article-preview__btn">
+                Подробнее
+            </button>
+        </div>
+    {% endfor %}
 {% endblock content %}

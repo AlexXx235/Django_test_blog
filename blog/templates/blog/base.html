@@ -1,8 +1,10 @@
 {% load static %}
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'blog/css/zero.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
     <title>Главная</title>
 </head>
@@ -11,15 +13,15 @@
     {% block header %}
 
         <div class="header">
-            <div class="nav-block">
-                <div class="menu-block">
-                    <a href="{% url 'blog:home' %}">Главная</a>
-                </div>
-                <div>
-                    <a href="{% url 'blog:articles' %}">Статьи</a>
-                </div>
+            <div class="nav">
+                {% get_header_menu as menu %}
+                {% for el in menu %}
+                    <div class="menu-block">
+                        <a href={% url el.url_name %}>{{ el.title }}</a>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="login-block">
+            <div class="nav-login">
                 <div class="menu-block">
                     <a href="{% url 'blog:login' %}">Войти</a>
                 </div>
@@ -34,8 +36,10 @@
         </div>
 
     {% block footer %}
-        <div>
-            <p>Все права защищены</p>
+        <div class="footer">
+            <div class="footer__content">
+                <p>Все права защищены</p>
+            </div>
         </div>
     {% endblock footer %}
 </div>

@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="article">
+        <div class="article__title">
+            {{ article.title }}
+        </div>
+        <div class="article__text">
+            {{ article.text|linebreaks }}
+        </div>
+    </div>
+{% endblock content %}
