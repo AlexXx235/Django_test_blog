@@ -1,6 +1,9 @@
+from django.contrib.auth import logout, login
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from .forms import *
 
@@ -30,25 +33,34 @@ class ArticleDetailView(DetailView):
     pk_url_kwarg = 'article_id'
 
 
-def login(request):
-    return render(request, 'blog/login.html')
-
-
-class AddArticleView(CreateView):
+class AddArticleView(LoginRequiredMixin, CreateView):
     form_class = AddArticleForm
     template_name = 'blog/add_article.html'
+    login_url = 'blog:home'
 
 
-# def add_article(request):
-#     if request.method == 'POST':
-#         form = AddArticleForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('blog:articles')
-#     else:
-#         form = AddArticleForm()
-#         print(form)
-#     return render(request, 'blog/add_article.html', {'form': form})
+class RegisterUserView(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'blog/register.html'
+    success_url = reverse_lazy('blog:home')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('blog:home')
+
+
+class LoginUserView(LoginView):
+    form_class = LoginUserForm
+    template_name = 'blog/register.html'
+
+    def get_success_url(self):
+        return reverse_lazy('blog:home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('blog:login')
 
 
 def about(request):

@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {% for row in form %}
+        <label for="{{ row.id_for_label }}">{{ row.label }}:</label>
+        {{ row }}
+        {{ row.errors }}
+        <br>
+        {% endfor %}
+        <input type="submit" value="Регистрация">
+    </form>
+{% endblock content %}

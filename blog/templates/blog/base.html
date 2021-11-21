@@ -22,9 +22,19 @@
                 {% endfor %}
             </div>
             <div class="nav-login">
+                {% if request.user.is_authenticated %}
+                {{ request.user.username }}
+                <div class="menu-block">
+                    <a href="{% url 'blog:logout' %}">Выйти</a>
+                </div>
+                {% else %}
+                <div class="menu-block">
+                    <a href="{% url 'blog:register' %}">Регистрация</a>
+                </div>
                 <div class="menu-block">
                     <a href="{% url 'blog:login' %}">Войти</a>
                 </div>
+                {% endif %}
             </div>
         </div>
 
